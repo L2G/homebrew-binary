@@ -1,9 +1,9 @@
 # Find downloads at: https://helpx.adobe.com/air/kb/archived-air-sdk-version.html
 class AdobeAirSdk < Formula
   homepage "https://www.adobe.com/devnet/air/air-sdk-download.html"
-  url "http://airdownload.adobe.com/air/mac/download/17.0/AIRSDK_Compiler.tbz2"
-  sha256 "7fe1b5172fd4b2144751dace46b3335eededc28398ae4672db9fab4b1ab6c634"
-  version "17.0.0.144"
+  url "http://airdownload.adobe.com/air/mac/download/18.0/AIRSDK_Compiler.tbz2"
+  version "18.0.0.180"
+  sha256 "e2eae0869fb335a428fd64a9fc624e35393fe72707e2561215f3c798c10a33ab"
 
   conflicts_with "adobe-air-sdk-flex"
 
@@ -20,6 +20,6 @@ class AdobeAirSdk < Formula
   end
 
   test do
-    system "#{bin}/fontswf", "-h"
+    assert_equal "#{version}\n", shell_output("#{bin}/adt -version")
   end
 end
