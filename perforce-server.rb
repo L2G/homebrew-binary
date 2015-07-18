@@ -1,13 +1,13 @@
 class PerforceServer < Formula
   homepage "http://www.perforce.com/"
-  version "2015.1.1028542"
+  version "2015.1.1171507"
 
   if MacOS.prefer_64_bit?
     url "http://filehost.perforce.com/perforce/r15.1/bin.darwin90x86_64/p4d"
-    sha256 "718bec5006d80b8135b35d60988e930a800d8ea5e06b9d0feeea45700a73d46b"
+    sha256 "b42758ebe7b54e672b513c34c88f399d0da7b4de1fd23b9f56d222a4f1f3bae5"
   else
     url "http://filehost.perforce.com/perforce/r15.1/bin.darwin90x86/p4d"
-    sha256 "052fac2e2ea4d763a451059f571e86b9332925e286513d5469851adc9169912e"
+    sha256 "0ecfd0510091232a53c24e426e1d48d460604ec3f9ea896d02736f93d151d5a5"
   end
 
   def install
@@ -43,5 +43,14 @@ class PerforceServer < Formula
     </dict>
     </plist>
     EOS
+  end
+
+  test do
+    os_tag = (MacOS.prefer_64_bit? ? "P4D/DARWIN90X86_64" : "P4D/DARWIN90X86")
+    (version_year, version_minor, version_build) = version.to_s.split(".")
+    assert_match(
+      %r[#{os_tag}/#{version_year}\.#{version_minor}/#{version_build} ],
+      shell_output("#{bin}/p4d -V")
+    )
   end
 end
