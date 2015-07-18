@@ -1,13 +1,13 @@
 class PerforceProxy < Formula
   homepage "http://www.perforce.com/"
-  version "2015.1.1028542"
+  version "2015.1.1126382"
 
   if MacOS.prefer_64_bit?
     url "http://filehost.perforce.com/perforce/r15.1/bin.darwin90x86_64/p4p"
-    sha256 "123d067257f38b09b5682c8508e37d3a60d297ce94321dc1dcce7812b5ab669d"
+    sha256 "4b1d3187588f5f298607dd8a2fc26c6d95d2ef169e5c33b1a1515c22c549759a"
   else
     url "http://filehost.perforce.com/perforce/r15.1/bin.darwin90x86/p4p"
-    sha256 "51205bf91189b6cd580426c4b2c99c1d723b0737de43abfd118de9e158663b77"
+    sha256 "975282fdfe656d48795e066a977d47743a3cb1b57465dfb265179965182a46a8"
   end
 
   def install
@@ -51,5 +51,14 @@ class PerforceProxy < Formula
     </dict>
     </plist>
     EOS
+  end
+
+  test do
+    os_tag = (MacOS.prefer_64_bit? ? "P4P/DARWIN90X86_64" : "P4P/DARWIN90X86")
+    (version_year, version_minor, version_build) = version.to_s.split(".")
+    assert_match(
+      %r[#{os_tag}/#{version_year}\.#{version_minor}/#{version_build} ],
+      shell_output("#{bin}/p4p -V")
+    )
   end
 end
