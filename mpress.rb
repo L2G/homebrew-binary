@@ -22,6 +22,10 @@ class Mpress < Formula
   end
 
   test do
+    assert_match(/MACHO-MPRESS v#{version}$/,
+                 shell_output("#{bin}/mpress", 1),
+                 "Version in formula should match version of binary")
+
     test_program = <<-EOS.undent
     #include <stdio.h>
     int main() { puts("Hello world!"); }
